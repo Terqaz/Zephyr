@@ -25,6 +25,8 @@ git clone https://github.com/Terqaz/Zephyr.git && \
     ServerName zephyr.local
     ServerAlias www.zephyr.local
 
+    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
     # Uncomment the following line to force Apache to pass the Authorization
     # header to PHP: required for "basic_auth" under PHP-FPM and FastCGI
     #
@@ -125,6 +127,53 @@ DATABASE_URL="postgresql://postgres:супер_сложный_пароль@127.0
 php bin/console doctrine:database:create && \
   php bin/console doctrine:migrations:migrate -n
 ```
+
+## JWT
+
+1. Запустить команду:
+
+```shell
+php bin/console lexik:jwt:generate-keypair
+```
+
+2. Указать в ```.env.local```:
+
+```
+JWT_PASSPHRASE=длинная_строка_по_типу_bb4ac3630b73a6de1075e76
+```
+
+3. Указать внутри ```<VirtualHost>``` в конфиге ```/etc/apache2/sites-available/имя_конфига.conf```, если еще не указали:
+   
+```
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+```
+
+и перезапустить Apache
+
+```shell
+service apache2 reload
+```
+
+### Тест
+
+1. Выполнить команду для добавления фикстур в БД, содержащих акк. админа (!!! данные в БД будут удалены):
+
+```shell
+php bin/console doctrine:fixtures:load --env=dev -n
+```
+
+Чтобы данные в БД не удалились нужно использовать команду:
+
+```shell
+php bin/console doctrine:fixtures:load --env=dev -n --append
+```
+
+2. Выполнить ```/api/login_check``` в ApiPlatform ```http://zephyr.local/api/docs``` с данными админа. Должен прийти ```token``` и ```refresh_token```
+
+3. Проверка токена в ApiPlatform:
+   1. Открыть Authorize
+   2. Вставить ```token``` и сохранить
+   3. Проверить какой-нибудь запрос к API
 
 ## dev-окружение
 
