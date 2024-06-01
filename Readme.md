@@ -102,7 +102,7 @@ git clone https://github.com/Terqaz/Zephyr.git && \
     sudo apt update && \
     sudo apt upgrade && \ 
     sudo apt install apache2 postgresql && \
-    sudo apt install php8.3 libapache2-mod-php8.3 php8.3-common php8.3-curl php8.3-intl php8.3-mbstring php8.3-bcmath php8.3-cli php8.3-pdo php8.3-pgsql && \
+    sudo apt install php8.3 libapache2-mod-php8.3 php8.3-common php8.3-curl php8.3-intl php8.3-mbstring php8.3-bcmath php8.3-cli php8.3-pdo php8.3-pgsql php8.3-sodium && \
     sudo apt install composer && \
     composer install && \
     npm install
