@@ -4,7 +4,7 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.2",
+        "php": ">=8.3",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "api-platform/core": "^3.3",
@@ -50,6 +50,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
+        "platform": {
+            "php": "8.3.7"
+        },
         "allow-plugins": {
             "php-http/discovery": true,
             "symfony/flex": true,
