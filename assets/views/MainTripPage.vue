@@ -1,8 +1,8 @@
 <script setup>
     import {ref} from 'vue'
-    import TripCard from '@/components/TripCard.vue'
-    import PlaceCard from '@/components/PlaceCard.vue'
-    import TopTripLine from '@/components/TopTripLine.vue'
+    import TripCard from '../components/TripCard.vue'
+    import PlaceCard from '../components/PlaceCard.vue'
+    import TopTripLine from '../components/TopTripLine.vue'
 
     const placeFrom = ref()
     const placeTo = ref()
@@ -31,7 +31,7 @@
 <template>
     <div ref="start" class="">
         <header class="block base-color w-full h-20 pt-7 pl-5 align-middle items-center content-center">
-            <img src="@/assets/logos/Zephyr.svg" class="w-24 inline" alt="">
+            <img src="/src/assets/logos/Zephyr.svg" class="w-24 inline" alt="">
             <ul class="flex float-right">
                 <li><router-link to="/profile">Профиль</router-link> </li>
                 <li><router-link to="/login">Войти</router-link> </li>

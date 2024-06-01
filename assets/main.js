@@ -1,7 +1,8 @@
+import { createApp } from 'vue'
+
 import './assets/main.css'
 
-import { createApp } from 'vue'
-import App from './App.vue'
+import App from './App'
 import router from './router'
 // Vuetify
 import 'vuetify/styles'
@@ -18,8 +19,20 @@ const vuetify = createVuetify({
       },
   })
 
-const app = createApp(App)
+const app = createApp(App);
 
-app.use(router).use(vuetify,{iconfont: 'mdi'})
+app.use(router).use(vuetify,{iconfont: 'mdi'});
 
-app.mount('#app')
+app.mount('#app');
+
+
+// import { createApp } from "vue";
+// // import router from "./router";
+
+// import './styles/app.css'
+
+// import App from "./components/App.vue";
+
+// const vm = createApp(App);
+// // vm.use(router);
+// vm.mount('#app');

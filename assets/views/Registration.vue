@@ -24,7 +24,7 @@
     <div class="plane-image lscreen">
       
     </div>
-    <img class="absolute w-52 left-10 bottom-10" src="@/assets/logos/Zephyr.svg" alt="">
+    <img class="absolute w-52 left-10 bottom-10" src="/src/assets/logos/Zephyr.svg" alt="">
     <div class="lscreen">
       <div class="login-box">
         <header class="mb-6">РЕГИСТРАЦИЯ</header>
@@ -90,7 +90,7 @@ header {
   background-color: white;
 }
 .plane-image {
-  background-image: url('@/assets/loginBackground.png');
+  background-image: url('../assets/loginBackground.png');
   background-size: cover;
   backdrop-filter: blur(2px);
 }
