@@ -11,8 +11,8 @@ git clone https://github.com/Terqaz/Zephyr.git && \
     cd Zephyr && \
     sudo apt update && \
     sudo apt upgrade && \ 
-    sudo apt install apache2 && \
-    sudo apt install php8.3 libapache2-mod-php8.3 php8.3-common php8.3-curl php8.3-intl php8.3-mbstring php8.3-bcmath php8.3-cli && \
+    sudo apt install apache2 postgresql && \
+    sudo apt install php8.3 libapache2-mod-php8.3 php8.3-common php8.3-curl php8.3-intl php8.3-mbstring php8.3-bcmath php8.3-cli php8.3-pdo php8.3-pgsql && \
     sudo apt install composer && \
     composer install && \
     npm install
@@ -84,6 +84,13 @@ sudo systemctl restart apache2.service
 127.0.0.1 zephyr.local
 ```
 
+5. Подключиться к postgres и установить пароль для пользователя postgres:
+
+```shell
+sudo -u postgres psql template1
+ALTER USER postgres with encrypted password 'супер_сложный_пароль';
+```
+
 # Запуск
 
 ## Apache
@@ -102,6 +109,21 @@ sudo systemctl enable apache2
 
 ```shell
 sudo systemctl status apache2.service
+```
+
+## БД
+
+1. Указать в файле .env.local строку:
+
+```shell
+DATABASE_URL="postgresql://postgres:супер_сложный_пароль@127.0.0.1:5432/zephyr?serverVersion=16&charset=utf8"
+```
+
+2. Выполнить команды:
+
+```shell
+php bin/console doctrine:database:create && \
+  php bin/console doctrine:migrations:migrate -n
 ```
 
 ## dev-окружение
