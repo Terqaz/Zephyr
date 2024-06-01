@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: inter;
+  src: url(./fonts/inter.ttf);
+}
+body {
+  box-sizing: border-box;
+  margin: 0;
+  font-family: 'inter';
+}
+.base-color{
+  background-color: #4F3F6A;
+}
+.text-base-color{
+  color: #4F3F6A;
+}
