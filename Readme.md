@@ -1,6 +1,96 @@
 # Описание
 
-TODO
+[Трекинг задач](https://docs.google.com/spreadsheets/d/1_yJfxQYWfEU8okYSMcdPMCSCUkeZkJRkXpiJ3dZc9XA/edit?usp=sharing)
+
+[Фигма](https://www.figma.com/design/cWtO9JIWOpOTJ787fey7g2/HAKAton)
+
+## Диаграмма БД
+[Редактор Mermaid](https://www.mermaidchart.com/app/projects/fd8cc5a2-8e43-4f53-8657-ce7c623dffbf/diagrams/2ddbc553-b26d-4311-9148-af3bccba8ad9/version/v0.1/edit)
+
+```mermaid
+---
+title: Zephyr
+---
+erDiagram
+    User ||--o{ SearchHistoryItem : "искал"
+    User ||--o{ SeenItem : "смотрел"
+    User ||--o{ UserFavorite : "отметил"
+    Flight }o--|{ Airline : "проводится"
+    Flight }o--|{ Place : "из"
+    Flight }o--|{ Place : "в"
+    Flight }o--o{ SeenItem : "просмотрен"
+    Flight }o--o{ UserFavorite : "отмечен"
+    Place }o--o{ SeenItem : "просмотрен"
+    Place }o--o{ UserFavorite : "отмечен"
+    Place }o--|| Place : "расположен в"
+
+    %% Пользователь
+    User {
+        int id PK
+        string(128) name
+        string(256) description
+        string(256) email
+        string(255) password
+        string roles
+    }
+
+    %% Место
+    Place {
+        int id PK
+        string(32) type "city, landmark"
+        string(80) name
+        string(255) imageUrl
+        int usersAssessment "Оценка"
+        bigint viewsCount
+        Place place FK "Город"
+    }
+
+    %% Авиакомпания
+    Airline {
+        int id PK
+        string(80) name
+        string(16) abbreviation
+    }
+
+    %% Запланированный перелет
+    Flight {
+        int id PK
+        float price
+        datetime startTime
+        datetime endTime
+        int transfersCount
+        bigint viewsCount
+        Airline airline FK
+        Place fromPlace FK
+        Place toPlace FK
+    }
+    
+    %% История запросов
+    SearchHistoryItem {
+        bigint id PK
+        string(32) type "flight"
+        string(1024) query
+        datetime searchDate
+        User user FK
+    }
+
+    %% История просмотров
+    SeenItem {
+        bigint id PK
+        string(32) type "place, flight"
+        datetime seenDate
+        Flight_or_Place entity FK
+        User user FK
+    }
+
+    %% Избранное пользователя
+    UserFavorite {
+        bigint id PK
+        string(32) type "place, flight"
+        Flight_or_Place entity FK
+        User user FK
+    }
+```
 
 # Настройка окружения
 
