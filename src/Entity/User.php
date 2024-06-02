@@ -6,7 +6,6 @@ use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Post;
-use App\Entity\Api\Request\RegisterRequest;
 use App\Entity\Api\Request\RegisterResponse;
 use App\Repository\UserRepository;
 use App\State\UserRegisterProcessor;
@@ -27,9 +26,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
     operations: [
         new Post(
             uriTemplate: '/register',
-            // input: RegisterRequest::class,
             processor: UserRegisterProcessor::class,
-            // normalizationContext: ['groups' => ['get']],
             denormalizationContext: ['groups' => ['create', 'update']],
             output: RegisterResponse::class
         ),

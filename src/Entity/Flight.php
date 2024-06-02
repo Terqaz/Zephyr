@@ -3,13 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
-use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
 use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Metadata\ApiFilter;
-use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
-use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\Repository\FlightRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -34,15 +31,13 @@ use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
     'price' => 'between',
 ])]
 #[ApiResource(
-    routePrefix: 'flights',
+    routePrefix: '/flights',
     operations: [
         new GetCollection(
             uriTemplate: '/search',
-            normalizationContext: ['groups' => ['get', 'searchFlights']]
+            normalizationContext: ['groups' => ['get', 'searchFlights']],
+            // provider: FlightSearchProvider::class,
         ),
-        // new Get(
-        //     normalizationContext: ['groups' => ['get', 'getDetail']]
-        // ),
     ]
 )]
 class Flight
