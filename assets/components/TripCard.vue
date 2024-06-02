@@ -1,17 +1,26 @@
 <script setup>
     import {ref} from 'vue'
-    const favorite = ref(false)
-    
+    const props = defineProps({
+        from : String,
+        to : String,
+        price : Number,
+        company : String,
+        isFavorite : Boolean,
+        timeStart : String,
+        timeEnd : String,
+        flightTime : String,
+    })
+    const favorite = ref(props.isFavorite)
 </script>
 
 <template>
     <div>
         <div class="flex">
             <div class="flex flex-grow">
-                <div class="text-blue-950 text-2xl w-1/2">Tiny Airlines</div>
+                <div class="text-blue-950 text-2xl w-1/2">{{props.company}}</div>
                 <div class="mr-auto">
-                    <div class="text-2xl">00:00 - 21:00</div>
-                    <div class="text-lg">Время в полете: 21 час</div>
+                    <div class="text-2xl">{{props.timeStart}} - {{props.timeEnd}}</div>
+                    <div class="text-lg">Время в полете: {{props.flightTime}}</div>
                 </div>
                 <div @click="favorite = !favorite">
                     <v-icon v-if="!favorite" icon="mdi-heart-outline"></v-icon>
@@ -21,9 +30,9 @@
             </div>
         </div>
         <div class="flex mb-2">
-            <div class="text-2xl text-blue-950 w-1/2">Цена: 83.000 Р</div>
+            <div class="text-2xl text-blue-950 w-1/2">Цена: {{ props.price }} Р</div>
             <div class="mr-auto">
-                <div class="font-bold">Липецк -> Москва</div>
+                <div class="font-bold">{{ props.from }} -> {{props.to}}</div>
             </div>
         </div>
         <div class="line"></div>

@@ -33,10 +33,7 @@
       <div class="login-box">
         <header class="mb-6">АУТЕНТИФИКАЦИЯ</header>
         <div class="default-text mb-6">
-          Lorem ipsu dolor sit amet, consectetur adipiscing elit. Quisque venenatis gravida nisi,
-          eget maximus elit imperdiet vel. Morbi imperdiet porttitor dolor, quis auctor lorem luctus
-          ut. Curabitur odio dui, molestie at tristique quis, pharetra vitae dui. Curabitur eget
-          finibus ligula.
+          Получите доступ к моментальной информации по авиабилетам и выбирайте самые выгодные варианты
         </div>
         <div class="mb-20">
           <span class="default-text mb-10">Нет аккаунта? </span>
@@ -45,7 +42,7 @@
           </RouterLink>
         </div>
         
-        <div class="mt-72">
+        <div class="inputs-div">
           <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Логин"></v-text-field>
           <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Пароль"></v-text-field>
           <v-btn rounded="" class="" color="#4F3F6A" @click="submit">Войти</v-btn>
@@ -92,6 +89,19 @@ header {
   height: 100%;
   float: right;
   background-color: white;
+}
+
+.inputs-div{
+  margin-top: 100px;
+}
+@media (max-width: 600px) { 
+  .login-box{
+    width: 100vw;
+    height: 100vh;
+  }
+  .inputs-div{
+    margin-top: 20px;
+  }
 }
 .plane-image {
   background-image: url('../assets/loginBackground.png');

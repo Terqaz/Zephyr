@@ -17,3 +17,36 @@ body {
 .text-base-color{
   color: #4F3F6A;
 }
+
+
+.card-grid{
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-flow: row;
+}
+li{
+  color: white;
+  text-transform: uppercase;
+  margin-right: 20px;
+}
+.line{
+  display: flex;
+  height: 3px;
+  width: 100vw;
+  background-color: black;
+}
+.main-container{
+  width: 963px;
+}
+@media (max-width: 963px) { 
+  .main-container{
+    width: 90vw;
+  }
+  .card-grid{
+    display: grid;
+    gap: 15px;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-auto-flow: row;
+  }
+}
