@@ -28,6 +28,17 @@ class Flight
     #[ORM\Column(options: ['default' => 0])]
     private ?int $transfersCount = 0;
 
+    #[ORM\Column(length: 8)]
+    private ?string $time_taken;
+
+    //0 - Эконом
+    //1 - Бизнес
+    #[ORM\Column()]
+    private ?int $class;
+
+    #[ORM\Column(length: 16)]
+    private ?string $stop;
+
     #[ORM\Column(type: Types::BIGINT, options: ['default' => 0])]
     private ?int $viewsCount = 0;
 
@@ -255,6 +266,42 @@ class Flight
                 $userFavorite->setFlight(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTimeTaken(): ?string
+    {
+        return $this->time_taken;
+    }
+
+    public function setTimeTaken(string $time_taken): static
+    {
+        $this->time_taken = $time_taken;
+
+        return $this;
+    }
+
+    public function getClass(): ?int
+    {
+        return $this->class;
+    }
+
+    public function setClass(int $class): static
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    public function getStop(): ?string
+    {
+        return $this->stop;
+    }
+
+    public function setStop(string $stop): static
+    {
+        $this->stop = $stop;
 
         return $this;
     }
