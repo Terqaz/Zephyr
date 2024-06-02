@@ -61,8 +61,10 @@ Encore
     //.enableSassLoader()
 
     // uncomment if you use TypeScript
-    //.enableTypeScriptLoader()
-
+    .enableTypeScriptLoader((options) => {
+        options.allowTsInNodeModules = true;
+      })
+      
     // uncomment if you use React
     //.enableReactPreset()
 

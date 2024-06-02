@@ -38,7 +38,8 @@
           </RouterLink>
         </div>
         <div class="inputs-div">
-          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Логин" v-model="login"></v-text-field>
+          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Email" v-model="login"></v-text-field>
+          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Имя" v-model="login"></v-text-field>
           <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Пароль" v-model="password"></v-text-field>
           <v-btn rounded=""  class="" color="#4F3F6A" @click="submit">Зарегистрироваться</v-btn>
         </div>

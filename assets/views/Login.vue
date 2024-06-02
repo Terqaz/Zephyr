@@ -1,22 +1,39 @@
 <script setup>
     import {ref} from 'vue'
     import axios from 'axios'
-    import { useRouter } from 'vue-router';
+    import { useRoute,useRouter } from 'vue-router';
 
     let login = ref('')
     let password = ref('')
-
+    let router = useRouter()
     function submit(){
         makeRequest()
         // Для теста
-        useRouter().push('/trip')
+        //router.push('/trip')
     }
 
     function makeRequest(){
         let clientInfo = {
-            login: login.value,
+            email: login.value,
             password: password.value,
         }
+        console.log(clientInfo)
+        axios.post('http://localhost:80/api/login_check', clientInfo)
+        .then(function (response) {
+          console.log(response.data)
+          console.log(response.data.token)
+          let data = response.data
+          try{
+              localStorage.setItem('TOKEN_KEY',data.token)
+              router.push('/trip')
+          }
+          catch{
+            
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
         // some request with clientInfo (Body)
     }
 
@@ -43,8 +60,8 @@
         </div>
         
         <div class="inputs-div">
-          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Логин"></v-text-field>
-          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" label="Пароль"></v-text-field>
+          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" v-model="login" label="Email"></v-text-field>
+          <v-text-field variant="underlined" class="w-full" prepend-inner-icon="mdi-account" v-model="password" label="Пароль"></v-text-field>
           <v-btn rounded="" class="" color="#4F3F6A" @click="submit">Войти</v-btn>
         </div>
       </div>
