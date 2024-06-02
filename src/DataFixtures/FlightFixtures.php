@@ -46,7 +46,7 @@ class FlightFixtures extends Fixture
                 ->setToPlace(($manager->getRepository(Place::class)->findBy(["name" => $flight["to"]]))[0])
                 ->setPrice(0);
             $manager->persist($flightObj);
-        
+        }
         $manager->flush();
     }
 }
