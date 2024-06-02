@@ -6,6 +6,7 @@ use App\Repository\AirlineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: AirlineRepository::class)]
 class Airline
@@ -15,6 +16,7 @@ class Airline
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['get', 'searchFlights'])]
     #[ORM\Column(length: 80)]
     private ?string $name = null;
 

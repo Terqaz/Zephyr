@@ -10,8 +10,8 @@ class PlaceFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-        $cities_array = ['Bangalore', 'Delhi', 'Hyderabad', 'Kolkata', 'Chennai', 'Mumbai'];
-        foreach($cities_array as $city){
+        $citiesArray = ['Bangalore', 'Delhi', 'Hyderabad', 'Kolkata', 'Chennai', 'Mumbai'];
+        foreach($citiesArray as $city){
             $place = new Place();
             $place
                 ->setName($city)

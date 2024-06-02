@@ -2,40 +2,92 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Doctrine\Orm\Filter\NumericFilter;
+use ApiPlatform\Doctrine\Orm\Filter\RangeFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\FlightRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Context;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 #[ORM\Entity(repositoryClass: FlightRepository::class)]
+#[ApiFilter(SearchFilter::class, properties: [
+    'fromPlace.name' => 'partial',
+    'toPlace.name' => 'partial',
+    'airline.name' => 'partial',
+])]
+#[ApiFilter(DateFilter::class, properties: [
+    'startTime' => 'after',
+    'endTime' => 'before',
+])]
+#[ApiFilter(RangeFilter::class, properties: [
+    'price' => 'between',
+])]
+#[ApiResource(
+    routePrefix: 'flights',
+    operations: [
+        new GetCollection(
+            uriTemplate: '/search',
+            normalizationContext: ['groups' => ['get', 'searchFlights']]
+        ),
+        // new Get(
+        //     normalizationContext: ['groups' => ['get', 'getDetail']]
+        // ),
+    ]
+)]
 class Flight
 {
+    #[Groups(['searchFlights'])]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Groups(['searchFlights'])]
     #[ORM\Column]
     private ?float $price = null;
 
+    #[Groups(['searchFlights'])]
+    #[Context(
+        groups: ['searchFlights'],
+        normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'H:i']
+    )]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $startTime = null;
 
+    #[Context(
+        groups: ['searchFlights'],
+        normalizationContext: [DateTimeNormalizer::FORMAT_KEY => 'H:i']
+    )]
+    #[Groups(['searchFlights'])]
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $endTime = null;
 
+    #[Groups(['get'])]
     #[ORM\Column(options: ['default' => 0])]
     private ?int $transfersCount = 0;
 
+    #[Groups(['searchFlights'])]
     #[ORM\Column(length: 8)]
-    private ?string $time_taken;
+    private ?string $timeTaken;
 
     //0 - Эконом
     //1 - Бизнес
+    #[Groups(['searchFlights'])]
     #[ORM\Column()]
     private ?int $class;
 
+    #[Groups(['searchFlights'])]
     #[ORM\Column(length: 16)]
     private ?string $stop;
 
@@ -46,10 +98,12 @@ class Flight
     #[ORM\JoinColumn(nullable: false)]
     private ?Airline $airline = null;
 
+    #[Groups(['searchFlights'])]
     #[ORM\ManyToOne(inversedBy: 'fromFlights')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $fromPlace = null;
 
+    #[Groups(['searchFlights'])]
     #[ORM\ManyToOne(inversedBy: 'toFlights')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Place $toPlace = null;
@@ -272,12 +326,12 @@ class Flight
 
     public function getTimeTaken(): ?string
     {
-        return $this->time_taken;
+        return $this->timeTaken;
     }
 
     public function setTimeTaken(string $time_taken): static
     {
-        $this->time_taken = $time_taken;
+        $this->timeTaken = $time_taken;
 
         return $this;
     }

@@ -20,9 +20,6 @@ abstract class SeenItem
     #[ORM\Column]
     private ?int $id = null;
 
-    // #[ORM\Column(length: 32)]
-    // private ?string $type = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $seenDate = null;
 
@@ -34,18 +31,6 @@ abstract class SeenItem
     {
         return $this->id;
     }
-
-    // public function getType(): ?string
-    // {
-    //     return $this->type;
-    // }
-
-    // public function setType(string $type): static
-    // {
-    //     $this->type = $type;
-
-    //     return $this;
-    // }
 
     public function getSeenDate(): ?\DateTimeInterface
     {

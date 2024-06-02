@@ -9,11 +9,9 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $passwordHasher;
-
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
-    {
-        $this->passwordHasher = $passwordHasher;
+    public function __construct(
+        private readonly UserPasswordHasherInterface $passwordHasher
+    ) {
     }
 
     public function load(ObjectManager $manager): void
@@ -28,6 +26,9 @@ class AppFixtures extends Fixture
             'admin_password'
         ));
         $manager->persist($admin);
+
+        (new PlaceFixtures())->load($manager);
+        (new AirlineFixtures())->load($manager);
 
         $manager->flush();
     }

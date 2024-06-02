@@ -1,4 +1,5 @@
 <?php
+
 namespace App\DataFixtures;
 
 ini_set('memory_limit', '1024M');
@@ -9,35 +10,32 @@ use App\Entity\Flight;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class FlightFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
-
-        (new PlaceFixtures())->load($manager);
-        (new AirlineFixtures())->load($manager);
-
-        $flights_array = [];
+        $flights = [];
         if (($handle = fopen(__DIR__ . "/../../public/flights.csv", "r")) !== FALSE) {
-            $flights_array[] = fgetcsv($handle, 1000, ",");
+            $flights[] = fgetcsv($handle, 1000, ",");
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                for ($i = 0; $i < count($data); $i++){
-                    $data[$flights_array[0][$i]] = $data[$i];
+                for ($i = 0; $i < count($data); $i++) {
+                    $data[$flights[0][$i]] = $data[$i];
                     unset($data[$i]);
                 }
-                array_push($flights_array, $data);
+                array_push($flights, $data);
             }
             fclose($handle);
         }
-        unset($flights_array[0]);
-        var_dump(count($flights_array));
-        $flights_array = array_slice($flights_array, 40000, 5000);
-        var_dump(count($flights_array));
+        unset($flights[0]);
+        var_dump(count($flights));
+        $flights = array_slice($flights, 40000, 5000);
+        var_dump(count($flights));
 
-        foreach($flights_array as $flight){            
-            $flight_object = new Flight();
-            $flight_object
+        foreach ($flights as $flight) {
+            $flightObj = new Flight();
+            $flightObj
                 ->setClass((int)$flight['class'])
                 ->setTimeTaken($flight['time_taken'])
                 ->setStop($flight['stop'])
@@ -47,8 +45,8 @@ class FlightFixtures extends Fixture
                 ->setFromPlace(($manager->getRepository(Place::class)->findBy(["name" => $flight["from"]]))[0])
                 ->setToPlace(($manager->getRepository(Place::class)->findBy(["name" => $flight["to"]]))[0])
                 ->setPrice(0);
-            $manager->persist($flight_object);
-        }
+            $manager->persist($flightObj);
+        
         $manager->flush();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserFavoriteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: UserFavoriteRepository::class)]
 #[ORM\InheritanceType('SINGLE_TABLE')]
@@ -14,13 +15,11 @@ use Doctrine\ORM\Mapping as ORM;
 ])]
 abstract class UserFavorite
 {
+    #[Groups('getFavorite')]
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    // #[ORM\Column(length: 32)]
-    // private ?string $type = null;
 
     #[ORM\ManyToOne(inversedBy: 'favorites')]
     #[ORM\JoinColumn(nullable: false)]
@@ -30,18 +29,6 @@ abstract class UserFavorite
     {
         return $this->id;
     }
-
-    // public function getType(): ?string
-    // {
-    //     return $this->type;
-    // }
-
-    // public function setType(string $type): static
-    // {
-    //     $this->type = $type;
-
-    //     return $this;
-    // }
 
     public function getUserData(): ?User
     {
