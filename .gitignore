@@ -37,3 +37,7 @@ yarn-error.log
 ### docker ###
 /db-data
 ###
+
+### vs-code ###
+/.vscode
+###
