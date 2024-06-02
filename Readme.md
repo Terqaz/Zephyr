@@ -4,6 +4,8 @@
 
 [Фигма](https://www.figma.com/design/cWtO9JIWOpOTJ787fey7g2/HAKAton)
 
+[ML микросервис](https://github.com/MicroMolekula/aviation_prediction)
+
 ## Диаграмма БД
 [Редактор Mermaid](https://www.mermaidchart.com/app/projects/fd8cc5a2-8e43-4f53-8657-ce7c623dffbf/diagrams/2ddbc553-b26d-4311-9148-af3bccba8ad9/version/v0.1/edit)
 
